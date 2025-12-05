@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Library | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- TOP MINISTRY BAR -->
+    <div class="w-full bg-blue-800 text-white text-center py-1 text-sm font-semibold tracking-wide flex justify-center items-center">
+        <span class="mx-4">शिक्षा मंत्रालय</span>
+        <span class="mx-4 border-l border-white pl-4">MINISTRY OF EDUCATION</span>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-6 px-6">
+
+        <div class="max-w-7xl mx-auto grid grid-cols-12 gap-4 items-center">
+
+            <!-- LEFT LOGO -->
+            <div class="col-span-2 flex justify-center">
+                <img src="assets/2023042118.svg" alt="KV Logo" class="h-20 object-contain">
+            </div>
+
+            <!-- CENTER TEXT -->
+            <div class="col-span-8">
+                <h2 class="text-xl font-bold">पीएम श्री केंद्रीय विद्यालय खुर्दा रोड</h2>
+                <h1 class="text-3xl font-extrabold uppercase">PM SHRI KENDRIYA VIDYALAYA KHURDA ROAD</h1>
+
+                <p class="mt-2 text-sm">
+                    KV Code: 1150 &nbsp; | &nbsp; CBSE Affiliation No.: 1500008 
+                    &nbsp; | &nbsp; CBSE School Code: 19096
+                </p>
+
+                <p class="text-sm">
+                    An autonomous body under the Ministry of Education, Government of India
+                </p>
+            </div>
+
+            <!-- RIGHT LOGOS -->
+            <div class="col-span-2 flex flex-col items-center space-y-3">
+                <img src="assets/swachbrt.svg" alt="Swachh Bharat" class="h-10 object-contain">
+                <img src="assets/pmshri.png" alt="PM SHRI" class="h-12 object-contain">
+            </div>
+
+        </div>
+    </header>
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-red-700">LIBRARY</h1>
+            <div class="space-x-6 text-lg">
+                <a href="index.html" class="hover:text-blue-600">Home</a>
+                <a href="catalogue.html" class="hover:text-blue-600">Catalogue</a>
+                <a href="search.html" class="hover:text-blue-600">Search</a>
+                <a href="about.html" class="hover:text-blue-600">About</a>
+                <a href="contact.html" class="hover:text-blue-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20">
+        <div class="max-w-6xl mx-auto text-center px-6">
+            <h2 class="text-4xl font-extrabold mb-4 tracking-wide">
+                Welcome to the School Digital Library
+            </h2>
+            <p class="text-xl opacity-90 mb-6">
+                Discover thousands of books, journals, and learning materials — all at your fingertips.
+            </p>
+
+            <a href="catalogue.php" 
+               class="bg-white text-blue-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
+               Explore Catalogue
+            </a>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <h3 class="text-3xl font-bold text-center mb-10">Why Use Our Library?</h3>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="bg-white shadow p-8 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-3">📘 Wide Collection</h4>
+                    <p>Access books covering academics, fiction, reference materials, and more.</p>
+                </div>
+
+                <div class="bg-white shadow p-8 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-3">⚡ Fast Search</h4>
+                    <p>Find any book instantly using our smart search engine.</p>
+                </div>
+
+                <div class="bg-white shadow p-8 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-3">📚 Easy Borrowing</h4>
+                    <p>Borrow, return, and track books all from your dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <h3 class="text-3xl font-bold text-center mb-10">Popular Categories</h3>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-blue-100 p-6 text-center rounded-lg shadow">Science</div>
+                <div class="bg-green-100 p-6 text-center rounded-lg shadow">Mathematics</div>
+                <div class="bg-yellow-100 p-6 text-center rounded-lg shadow">History</div>
+                <div class="bg-pink-100 p-6 text-center rounded-lg shadow">Literature</div>
+                <div class="bg-purple-100 p-6 text-center rounded-lg shadow">Technology</div>
+                <div class="bg-red-100 p-6 text-center rounded-lg shadow">Languages</div>
+                <div class="bg-indigo-100 p-6 text-center rounded-lg shadow">Comics</div>
+                <div class="bg-teal-100 p-6 text-center rounded-lg shadow">Reference</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h3 class="text-3xl font-bold mb-8">Our Library in Numbers</h3>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="bg-white p-8 shadow rounded-lg">
+                    <h4 class="text-4xl font-bold text-blue-700">10000+</h4>
+                    <p>Books</p>
+                </div>
+
+                <div class="bg-white p-8 shadow rounded-lg">
+                    <h4 class="text-4xl font-bold text-blue-700">1600+</h4>
+                    <p>Students</p>
+                </div>
+
+                <div class="bg-white p-8 shadow rounded-lg">
+                    <h4 class="text-4xl font-bold text-blue-700">20+</h4>
+                    <p>Categories</p>
+                </div>
+
+                <div class="bg-white p-8 shadow rounded-lg">
+                    <h4 class="text-4xl font-bold text-blue-700">100%</h4>
+                    <p>Free Access</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ANNOUNCEMENTS -->
+    <section class="py-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="text-3xl font-bold mb-10 text-center">Announcements</h3>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-4">
+                <h4 class="font-semibold text-xl">📢 New Books Added!</h4>
+                <p>We have added 50+ new science and literature books this month.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-4">
+                <h4 class="font-semibold text-xl">⏰ Extended Library Hours</h4>
+                <p>The library will now be open from 8 AM to 6 PM every weekday.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h4 class="font-semibold text-xl">🎓 Exam Study Guides</h4>
+                <p>Special exam prep materials are now available in the reference section.</p>
+            </div>
+        </div>
+    </section>
+
+       <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-10 mt-10">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p>© PM SHRI KV KHURDA ROAD LIBRARY. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

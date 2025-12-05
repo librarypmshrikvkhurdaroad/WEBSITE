@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Search</title>
+<script src="https://cdn.tailwindcss.com"></script></head><body class="bg-gray-50 text-gray-800">
+    <!-- TOP MINISTRY BAR -->
+    <div class="w-full bg-blue-800 text-white text-center py-1 text-sm font-semibold tracking-wide flex justify-center items-center">
+        <span class="mx-4">शिक्षा मंत्रालय</span>
+        <span class="mx-4 border-l border-white pl-4">MINISTRY OF EDUCATION</span>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-6 px-6">
+
+        <div class="max-w-7xl mx-auto grid grid-cols-12 gap-4 items-center">
+
+            <!-- LEFT LOGO -->
+            <div class="col-span-2 flex justify-center">
+                <img src="assets/2023042118.svg" alt="KV Logo" class="h-20 object-contain">
+            </div>
+
+            <!-- CENTER TEXT -->
+            <div class="col-span-8">
+                <h2 class="text-xl font-bold">पीएम श्री केंद्रीय विद्यालय खुर्दा रोड</h2>
+                <h1 class="text-3xl font-extrabold uppercase">PM SHRI KENDRIYA VIDYALAYA KHURDA ROAD</h1>
+
+                <p class="mt-2 text-sm">
+                    KV Code: 1150 &nbsp; | &nbsp; CBSE Affiliation No.: 1500008 
+                    &nbsp; | &nbsp; CBSE School Code: 19096
+                </p>
+
+                <p class="text-sm">
+                    An autonomous body under the Ministry of Education, Government of India
+                </p>
+            </div>
+
+            <!-- RIGHT LOGOS -->
+            <div class="col-span-2 flex flex-col items-center space-y-3">
+                <img src="assets/swachbrt.svg" alt="Swachh Bharat" class="h-10 object-contain">
+                <img src="assets/pmshri.png" alt="PM SHRI" class="h-12 object-contain">
+            </div>
+
+        </div>
+    </header>
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-red-700">LIBRARY</h1>
+            <div class="space-x-6 text-lg">
+                <a href="index.html" class="hover:text-blue-600">Home</a>
+                <a href="catalogue.html" class="hover:text-blue-600">Catalogue</a>
+                <a href="search.html" class="hover:text-blue-600">Search</a>
+                <a href="about.html" class="hover:text-blue-600">About</a>
+                <a href="contact.html" class="hover:text-blue-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('menu');
+  btn && btn.addEventListener('click', ()=> menu.classList.toggle('hidden'));
+});
+</script>
+
+<main class="max-w-4xl mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4">Search Books</h1>
+  <div class="flex gap-2">
+    <input id="q" class="p-2 border rounded flex-1" placeholder="Title, author or category">
+    <button id="go" class="bg-blue-600 text-white px-4 py-2 rounded">Search</button>
+  </div>
+  <div id="results" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+</main>
+
+<script type="module">
+import './js/firebase.js';
+import { searchBooks } from './js/books.js';
+
+document.getElementById('go').addEventListener('click', async ()=>{
+  const q = document.getElementById('q').value;
+  const res = await searchBooks(q || '');
+  const container = document.getElementById('results');
+  if (!res.length) container.innerHTML = '<p class="text-gray-600">No results</p>';
+  else container.innerHTML = res.map(b=>`
+    <div class="bg-white p-3 rounded shadow flex gap-3">
+      <img src="${b.coverURL || 'assets/placeholder.png'}" class="w-20 h-24 object-cover rounded">
+      <div>
+        <h3 class="font-semibold">${b.title}</h3>
+        <p class="text-sm text-gray-600">${b.author}</p>
+        <p class="mt-2"><a class="text-blue-600" href="book.html?id=${b.id}">View</a></p>
+      </div>
+    </div>
+  `).join('');
+});
+</script>
+
+<footer class="bg-gray-900 text-white text-center py-6 mt-8"><div class="max-w-6xl mx-auto px-4"><p>© 2025 School Library</p></div></footer>
+</body></html>

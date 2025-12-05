@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Edit Book</title>
+<script src="https://cdn.tailwindcss.com"></script></head><body class="bg-gray-50 text-gray-800">
+<!-- TOP MINISTRY BAR -->
+<div class="w-full bg-blue-800 text-white text-center py-1 text-sm font-semibold tracking-wide flex justify-center items-center">
+    <span class="mx-4">शिक्षा मंत्रालय</span>
+    <span class="mx-4 border-l border-white pl-4">MINISTRY OF EDUCATION</span>
+</div>
+
+<!-- MAIN HEADER -->
+<header class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-6 px-4">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center sm:items-start gap-4">
+    <div class="flex-shrink-0">
+      <img src="assets/kvlogo.png" alt="KV Logo" class="h-16 sm:h-20 object-contain">
+    </div>
+    <div class="flex-1 text-center sm:text-left">
+      <h2 class="text-lg sm:text-xl font-bold">पीएम श्री केंद्रीय विद्यालय खुर्दा रोड</h2>
+      <h1 class="text-2xl sm:text-3xl font-extrabold uppercase leading-tight">PM SHRI KENDRIYA VIDYALAYA</h1>
+      <p class="mt-1 text-sm sm:text-sm">KV Code: 1150 · CBSE Affiliation No.: 1500008 · School Code: 19096</p>
+      <p class="text-sm">An autonomous body under the Ministry of Education, Government of India</p>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <img src="assets/swachh.png" alt="Swachh" class="h-8 sm:h-10 object-contain">
+      <img src="assets/pmshri.png" alt="PM SHRI" class="h-10 sm:h-12 object-contain">
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="bg-white shadow">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div class="flex items-center justify-between">
+      <div class="text-blue-700 font-bold">📚 Library Portal</div>
+      <button id="menuBtn" class="sm:hidden px-2 py-1 border rounded">Menu</button>
+    </div>
+    <div id="menu" class="hidden sm:flex gap-6 text-gray-700 font-semibold">
+      <a href="index.html" class="hover:text-blue-600">Home</a>
+      <a href="about.html" class="hover:text-blue-600">About</a>
+      <a href="catalogue.html" class="hover:text-blue-600">Catalogue</a>
+      <a href="search.html" class="hover:text-blue-600">Search</a>
+      <a href="contact.html" class="hover:text-blue-600">Contact</a>
+      <a href="admin/login.html" class="hover:text-blue-600">Admin</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('menu');
+  btn && btn.addEventListener('click', ()=> menu.classList.toggle('hidden'));
+});
+</script>
+
+<main class="max-w-xl mx-auto p-4">
+  <div class="bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Edit Book</h1>
+    <form id="editForm" class="space-y-3">
+      <input name="title" placeholder="Title" class="w-full p-2 border rounded" required>
+      <input name="author" placeholder="Author" class="w-full p-2 border rounded" required>
+      <input name="category" placeholder="Category" class="w-full p-2 border rounded">
+      <textarea name="description" placeholder="Description" class="w-full p-2 border rounded"></textarea>
+      <label class="block text-sm">Change cover (optional)</label>
+      <input type="file" name="cover" accept="image/*" class="w-full">
+      <label class="inline-flex items-center"><input type="checkbox" name="available" class="mr-2"> Available</label>
+      <div class="flex justify-between items-center">
+        <button class="bg-blue-600 text-white px-4 py-2 rounded">Save</button>
+        <a href="dashboard.html" class="text-sm text-gray-600">Cancel</a>
+      </div>
+    </form>
+    <div id="msg" class="mt-2"></div>
+  </div>
+</main>
+
+<script type="module">
+import { onAuth } from '../js/auth.js';
+import { getBook, updateBook } from '../js/books.js';
+
+onAuth(async user=>{ if(!user) location.href='login.html'; else init(); });
+
+function getId(){ return new URLSearchParams(location.search).get('id'); }
+
+async function init(){
+  const id = getId(); if(!id) return;
+  const b = await getBook(id);
+  const f = document.getElementById('editForm');
+  if(!b) return document.getElementById('msg').innerHTML = '<div class="text-red-600">Book not found</div>';
+  f.title.value = b.title || '';
+  f.author.value = b.author || '';
+  f.category.value = b.category || '';
+  f.description.value = b.description || '';
+  f.available.checked = b.available? true:false;
+}
+
+document.getElementById('editForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const f = e.target; const id = getId();
+  const data = { title:f.title.value, author:f.author.value, category:f.category.value, description:f.description.value, available: f.available.checked };
+  const file = f.cover.files[0];
+  try {
+    if (file) {
+      const { ref, uploadBytes, getDownloadURL } = await import('https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js');
+      const { storage } = await import('../js/firebase.js');
+      const storageRef = ref(storage, `covers/${Date.now()}_${file.name}`);
+      const snap = await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(snap.ref);
+      data.coverURL = url;
+    }
+    await updateBook(id, data);
+    document.getElementById('msg').innerHTML = '<div class="text-green-700">Saved</div>';
+  } catch(err) {
+    document.getElementById('msg').innerHTML = '<div class="text-red-600">'+err.message+'</div>';
+  }
+});
+</script>
+
+<footer class="bg-gray-900 text-white text-center py-6 mt-8"><div class="max-w-6xl mx-auto px-4"><p>© 2025 School Library</p></div></footer>
+</body></html>
