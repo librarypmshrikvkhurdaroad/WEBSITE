@@ -9,25 +9,59 @@
 
 <body class="bg-gray-50 text-gray-800">
 
-<!-- SAME HEADER + NAVBAR (unchanged) -->
-
-<header class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-6 px-4">
-  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center sm:items-start gap-4">
-    <div class="flex-shrink-0">
-      <img src="assets/kvlogo.png" class="h-16 sm:h-20">
+<!-- TOP MINISTRY BAR -->
+    <div class="w-full bg-blue-800 text-white text-center py-1 text-sm font-semibold tracking-wide flex justify-center items-center">
+        <span class="mx-4">शिक्षा मंत्रालय</span>
+        <span class="mx-4 border-l border-white pl-4">MINISTRY OF EDUCATION</span>
     </div>
-    <div class="flex-1 text-center sm:text-left">
-      <h2 class="text-lg sm:text-xl font-bold">पीएम श्री केंद्रीय विद्यालय खुर्दा रोड</h2>
-      <h1 class="text-2xl sm:text-3xl font-extrabold uppercase">PM SHRI KENDRIYA VIDYALAYA</h1>
-    </div>
-  </div>
-</header>
 
-<nav class="bg-white shadow">
-  <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between">
-    <div class="text-blue-700 font-bold">📚 Library Portal</div>
-  </div>
-</nav>
+    <!-- MAIN HEADER -->
+    <header class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-6 px-6">
+
+        <div class="max-w-7xl mx-auto grid grid-cols-12 gap-4 items-center">
+
+            <!-- LEFT LOGO -->
+            <div class="col-span-2 flex justify-center">
+                <img src="assets/2023042118.svg" alt="KV Logo" class="h-20 object-contain">
+            </div>
+
+            <!-- CENTER TEXT -->
+            <div class="col-span-8">
+                <h2 class="text-xl font-bold">पीएम श्री केंद्रीय विद्यालय खुर्दा रोड</h2>
+                <h1 class="text-3xl font-extrabold uppercase">PM SHRI KENDRIYA VIDYALAYA KHURDA ROAD</h1>
+
+                <p class="mt-2 text-sm">
+                    KV Code: 1150 &nbsp; | &nbsp; CBSE Affiliation No.: 1500008 
+                    &nbsp; | &nbsp; CBSE School Code: 19096
+                </p>
+
+                <p class="text-sm">
+                    An autonomous body under the Ministry of Education, Government of India
+                </p>
+            </div>
+
+            <!-- RIGHT LOGOS -->
+            <div class="col-span-2 flex flex-col items-center space-y-3">
+                <img src="assets/swachbrt.svg" alt="Swachh Bharat" class="h-10 object-contain">
+                <img src="assets/pmshri.png" alt="PM SHRI" class="h-12 object-contain">
+            </div>
+
+        </div>
+    </header>
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-red-700">LIBRARY</h1>
+            <div class="space-x-6 text-lg">
+                <a href="index.html" class="hover:text-blue-600">Home</a>
+                <a href="catalogue.html" class="hover:text-blue-600">Catalogue</a>
+                <a href="search.html" class="hover:text-blue-600">Search</a>
+                <a href="about.html" class="hover:text-blue-600">About</a>
+                <a href="contact.html" class="hover:text-blue-600">Contact</a>
+            </div>
+        </div>
+    </nav>
 
 <main class="max-w-6xl mx-auto p-4">
 
