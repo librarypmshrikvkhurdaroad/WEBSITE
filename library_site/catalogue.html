@@ -1,105 +1,180 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Catalogue</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library</title>
 <script src="https://cdn.tailwindcss.com"></script>
-</head><body class="bg-gray-50 text-gray-800">
-    <!-- TOP MINISTRY BAR -->
-    <div class="w-full bg-blue-800 text-white text-center py-1 text-sm font-semibold tracking-wide flex justify-center items-center">
-        <span class="mx-4">शिक्षा मंत्रालय</span>
-        <span class="mx-4 border-l border-white pl-4">MINISTRY OF EDUCATION</span>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+<!-- TOP MINISTRY BAR -->
+<div class="w-full bg-blue-800 text-white text-center py-1 text-sm font-semibold tracking-wide flex justify-center items-center">
+    <span class="mx-4">शिक्षा मंत्रालय</span>
+    <span class="mx-4 border-l border-white pl-4">MINISTRY OF EDUCATION</span>
+</div>
+
+<!-- MAIN HEADER -->
+<header class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-6 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-12 gap-4 items-center">
+
+        <!-- LEFT LOGO -->
+        <div class="col-span-2 flex justify-center">
+            <img src="assets/2023042118.svg" alt="KV Logo" class="h-20 object-contain">
+        </div>
+
+        <!-- CENTER TEXT -->
+        <div class="col-span-8">
+            <h2 class="text-xl font-bold">पीएम श्री केंद्रीय विद्यालय खुर्दा रोड</h2>
+            <h1 class="text-3xl font-extrabold uppercase">PM SHRI KENDRIYA VIDYALAYA KHURDA ROAD</h1>
+
+            <p class="mt-2 text-sm">
+                KV Code: 1150 &nbsp; | &nbsp; CBSE Affiliation No.: 1500008 
+                &nbsp; | &nbsp; CBSE School Code: 19096
+            </p>
+
+            <p class="text-sm">
+                An autonomous body under the Ministry of Education, Government of India
+            </p>
+        </div>
+
+        <!-- RIGHT LOGOS -->
+        <div class="col-span-2 flex flex-col items-center space-y-3">
+            <img src="assets/swachbrt.svg" alt="Swachh Bharat" class="h-10 object-contain">
+            <img src="assets/pmshri.png" alt="PM SHRI" class="h-12 object-contain">
+        </div>
+
     </div>
+</header>
 
-    <!-- MAIN HEADER -->
-    <header class="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-6 px-6">
-
-        <div class="max-w-7xl mx-auto grid grid-cols-12 gap-4 items-center">
-
-            <!-- LEFT LOGO -->
-            <div class="col-span-2 flex justify-center">
-                <img src="assets/2023042118.svg" alt="KV Logo" class="h-20 object-contain">
-            </div>
-
-            <!-- CENTER TEXT -->
-            <div class="col-span-8">
-                <h2 class="text-xl font-bold">पीएम श्री केंद्रीय विद्यालय खुर्दा रोड</h2>
-                <h1 class="text-3xl font-extrabold uppercase">PM SHRI KENDRIYA VIDYALAYA KHURDA ROAD</h1>
-
-                <p class="mt-2 text-sm">
-                    KV Code: 1150 &nbsp; | &nbsp; CBSE Affiliation No.: 1500008 
-                    &nbsp; | &nbsp; CBSE School Code: 19096
-                </p>
-
-                <p class="text-sm">
-                    An autonomous body under the Ministry of Education, Government of India
-                </p>
-            </div>
-
-            <!-- RIGHT LOGOS -->
-            <div class="col-span-2 flex flex-col items-center space-y-3">
-                <img src="assets/swachbrt.svg" alt="Swachh Bharat" class="h-10 object-contain">
-                <img src="assets/pmshri.png" alt="PM SHRI" class="h-12 object-contain">
-            </div>
-
+<!-- NAVBAR -->
+<nav class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-red-700">LIBRARY</h1>
+        <div class="space-x-6 text-lg">
+            <a href="https://librarykvkhurdard.netlify.app/" class="hover:text-blue-600">Home</a>
+            <a href="#catalogue" class="hover:text-blue-600">Catalogue</a>
+            <a href="#search" class="hover:text-blue-600">Search</a>
+            <a href="about.html" class="hover:text-blue-600">About</a>
+            <a href="contact.html" class="hover:text-blue-600">Contact</a>
         </div>
-    </header>
+    </div>
+</nav>
 
-    <!-- NAVBAR -->
-    <nav class="bg-white shadow sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-red-700">LIBRARY</h1>
-            <div class="space-x-6 text-lg">
-                <a href="index.html" class="hover:text-blue-600">Home</a>
-                <a href="catalogue.html" class="hover:text-blue-600">Catalogue</a>
-                <a href="search.html" class="hover:text-blue-600">Search</a>
-                <a href="about.html" class="hover:text-blue-600">About</a>
-                <a href="contact.html" class="hover:text-blue-600">Contact</a>
-            </div>
-        </div>
-    </nav>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  const btn = document.getElementById('menuBtn');
-  const menu = document.getElementById('menu');
-  btn && btn.addEventListener('click', ()=> menu.classList.toggle('hidden'));
-});
-</script>
-
+<!-- MAIN CONTENT -->
 <main class="max-w-6xl mx-auto p-4">
-  <h1 class="text-2xl font-bold mb-4">Library Catalogue</h1>
-  <div id="booksGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+
+    <!-- SEARCH SECTION -->
+    <section id="search" class="mt-6">
+        <h1 class="text-2xl font-bold mb-4">Search Books</h1>
+
+        <div class="flex gap-2">
+            <input id="searchInput" class="p-2 border rounded flex-1" placeholder="Title, author or category">
+            <button id="searchBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Search</button>
+        </div>
+
+        <div id="searchResults" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+    <hr class="my-8">
+
+    <!-- CATALOGUE SECTION -->
+    <section id="catalogue">
+        <h1 class="text-2xl font-bold mb-4">Library Catalogue</h1>
+        <div id="booksGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+    </section>
+
 </main>
 
-<script type="module">
-import './js/firebase.js';
-import { listBooks } from './js/books.js';
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-white text-center py-6 mt-8">
+    <div class="max-w-6xl mx-auto px-4">
+        <p>© 2025 School Library</p>
+    </div>
+</footer>
 
-async function render() {
-  const grid = document.getElementById('booksGrid');
-  grid.innerHTML = '<p class="text-gray-600">Loading...</p>';
-  try {
-    const books = await listBooks();
-    if (!books.length) {
-      grid.innerHTML = '<p class="text-gray-600">No books yet.</p>';
-      return;
+<!-- SUPABASE + JS -->
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+// TODO: 🔴 Replace with YOUR Supabase URL and Key
+const supabase = createClient(
+  "https://gtzmmhowtxvfrbdxpioh.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0em1taG93dHh2ZnJiZHhwaW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5NzE4ODgsImV4cCI6MjA4MDU0Nzg4OH0.5Ys003VuHXLngvGQlKNJrDjQybs87H1Vs-hRGNuQPDo"
+);
+
+// FETCH ALL BOOKS (CATALOGUE)
+async function loadCatalogue() {
+    const grid = document.getElementById('booksGrid');
+    grid.innerHTML = "<p>Loading...</p>";
+
+    const { data, error } = await supabase
+        .from("books")
+        .select("*")
+        .order("title");
+
+    if (error) {
+        grid.innerHTML = "<p class='text-red-600'>Error loading books</p>";
+        return;
     }
-    grid.innerHTML = books.map(b=>`
-      <div class="bg-white rounded shadow p-3">
-        <img src="${b.coverURL || 'assets/placeholder.png'}" class="w-full h-40 object-cover rounded">
-        <h3 class="font-semibold mt-2">${b.title}</h3>
-        <p class="text-sm text-gray-600">${b.author || ''}</p>
-        <p class="mt-2 text-sm">Status: <strong>${b.available? 'Available':'Issued'}</strong></p>
-        <p class="mt-2"><a class="text-blue-600 hover:underline" href="book.html?id=${b.id}">View</a></p>
-      </div>
-    `).join('');
-  } catch(e) {
-    grid.innerHTML = '<p class="text-red-600">Error loading books.</p>';
-    console.error(e);
-  }
+
+    grid.innerHTML = data.map(b => `
+        <div class="bg-white rounded shadow p-3">
+            <img src="${b.cover_url || 'assets/placeholder.png'}"
+                class="w-full h-40 object-cover rounded">
+            <h3 class="font-semibold mt-2">${b.title}</h3>
+            <p class="text-sm text-gray-600">${b.author || ""}</p>
+            <p class="mt-2 text-sm">Status: <strong>${b.available ? "Available" : "Issued"}</strong></p>
+        </div>
+    `).join("");
 }
 
-render();
+// SEARCH BOOKS
+async function runSearch() {
+    const q = document.getElementById("searchInput").value.trim();
+    const results = document.getElementById("searchResults");
+
+    if (!q) {
+        results.innerHTML = "<p class='text-gray-600'>Enter something to search.</p>";
+        return;
+    }
+
+    results.innerHTML = "<p>Searching...</p>";
+
+    const { data, error } = await supabase
+        .from("books")
+        .select("*")
+        .or(`title.ilike.%${q}%,author.ilike.%${q}%,category.ilike.%${q}%`);
+
+    if (error) {
+        results.innerHTML = "<p class='text-red-600'>Search error</p>";
+        return;
+    }
+
+    if (!data.length) {
+        results.innerHTML = "<p class='text-gray-600'>No results found</p>";
+        return;
+    }
+
+    results.innerHTML = data.map(b => `
+        <div class="bg-white p-3 rounded shadow flex gap-3">
+            <img src="${b.cover_url || 'assets/placeholder.png'}"
+                class="w-20 h-24 object-cover rounded">
+            <div>
+                <h3 class="font-semibold">${b.title}</h3>
+                <p class="text-sm text-gray-600">${b.author || ""}</p>
+            </div>
+        </div>
+    `).join("");
+}
+
+// EVENTS
+document.getElementById("searchBtn").addEventListener("click", runSearch);
+
+// AUTO LOAD CATALOGUE
+loadCatalogue();
 </script>
 
-<footer class="bg-gray-900 text-white text-center py-6 mt-8">
-  <div class="max-w-6xl mx-auto px-4"><p>© 2025 School Library</p></div>
-</footer>
-</body></html>
+</body>
+</html>
