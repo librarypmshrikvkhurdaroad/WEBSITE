@@ -61,7 +61,7 @@ async function loadCatalogue() {
   const grid = document.getElementById("booksGrid");
   grid.innerHTML = "<p>Loading...</p>";
 
-  const { data, error } = await supabase.from("books").select("*");
+  const { data, error } = await supabase.from("book_data").select("*");
   if (error) {
     grid.innerHTML = "<p class='text-red-600'>Error loading books</p>";
     console.error(error);
