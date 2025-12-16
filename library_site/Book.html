@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book Details</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<header class="bg-blue-900 text-white p-4 shadow-md">
+  <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <h1 class="text-xl font-bold">📚 School Library</h1>
+    <nav class="flex gap-4 text-sm">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="catalogue.html" class="hover:underline">Catalogue</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-4xl mx-auto p-4">
+  <div id="loader" class="text-center text-gray-600">Loading book details...</div>
+  <div id="bookDetails" class="hidden"></div>
+</main>
+
+<footer class="bg-blue-900 text-white p-3 text-center mt-8 text-sm">
+  © 2025 School Library
+</footer>
+
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const supabase = createClient(
+  "https://gtzmmhowtxvfrbdxpioh.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0em1taG93dHh2ZnJiZHhwaW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5NzE4ODgsImV4cCI6MjA4MDU0Nzg4OH0.5Ys003VuHXLngvGQlKNJrDjQybs87H1Vs-hRGNuQPDo"
+);
+
+const googleApiKey = "AIzaSyCJGgpA594gCg8eOVOpLkhKVcs5K7Jkg38";
+
+// Extract query params
+const params = new URLSearchParams(window.location.search);
+const isbn = params.get("isbn");
+const acc_no = params.get("acc");
+
+if (!isbn) document.getElementById("loader").textContent = "Invalid book";
+
+// Metadata fetcher
+async function fetchMetadata(isbn) {
+  const res = await fetch(
+    `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${googleApiKey}`
+  );
+  const data = await res.json();
+  if (!data.items) return null;
+
+  const info = data.items[0].volumeInfo;
+  return {
+    title: info.title || "Unknown Title",
+    author: info.authors ? info.authors.join(", ") : "Unknown Author",
+    cover_url:
+      info.imageLinks?.thumbnail || info.imageLinks?.smallThumbnail || "assets/placeholder.png",
+    description: info.description || "No description available.",
+    published: info.publishedDate || "Unknown"
+  };
+}
+
+// Load book
+async function loadBook() {
+  const loader = document.getElementById("loader");
+  const details = document.getElementById("bookDetails");
+
+  const meta = await fetchMetadata(isbn);
+  if (!meta) return loader.textContent = "Book not found";
+
+  loader.classList.add("hidden");
+  details.classList.remove("hidden");
+
+  details.innerHTML = `
+    <div class="flex flex-col md:flex-row gap-6">
+      <img src="${meta.cover_url}" class="w-60 rounded shadow" />
+
+      <div>
+        <h1 class="text-3xl font-bold">${meta.title}</h1>
+        <p class="text-lg text-gray-700">by <span class="font-medium">${meta.author}</span></p>
+        <p class="mt-2 text-sm text-gray-600">Published: ${meta.published}</p>
+
+        <div class="mt-4 p-2 bg-gray-100 rounded">
+          <p><strong>📌 Accession No:</strong> ${acc_no}</p>
+          <p><strong>📚 ISBN:</strong> ${isbn}</p>
+        </div>
+
+        <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+          Reserve Book 📌
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <h2 class="text-2xl font-semibold mb-2">📖 Description</h2>
+      <p class="text-gray-700 leading-relaxed">${meta.description}</p>
+    </div>
+  `;
+}
+
+loadBook();
+</script>
+
+</body>
+</html>

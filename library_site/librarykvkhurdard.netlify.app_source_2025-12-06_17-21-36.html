@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Library | Catalogue</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  /* Shimmer Loading Effect */
+  .shimmer {
+    background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: 200px 0; }
+  }
+</style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+<header class="bg-blue-900 text-white p-4 shadow-md">
+  <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <h1 class="text-xl font-bold">📚 School Library</h1>
+    <nav class="flex gap-4 text-sm">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="catalogue.html" class="underline font-semibold">Catalogue</a>
+      <a href="about.html" class="hover:underline">About</a>
+      <a href="contact.html" class="hover:underline">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto p-4">
+  <h1 class="text-3xl font-bold mb-6">Library Catalogue</h1>
+
+  <!-- Search -->
+  <div class="mb-6 flex gap-2">
+    <input id="searchInput" class="p-2 border rounded flex-1" placeholder="Search by title, author or ISBN">
+    <button id="searchBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Search</button>
+  </div>
+
+  <!-- Search Results -->
+  <div id="searchResults" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"></div>
+
+  <!-- Full Catalogue -->
+  <h2 class="text-2xl font-bold mb-4">All Books</h2>
+
+  <div id="booksGrid"
+       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+</main>
+
+<footer class="bg-blue-900 text-white p-3 text-center mt-8 text-sm">
+  © 2025 School Library | Designed with 📚 by Students
+</footer>
+
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+// ===== Supabase Setup =====
+const supabase = createClient(
+  "https://gtzmmhowtxvfrbdxpioh.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0em1taG93dHh2ZnJiZHhwaW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ5NzE4ODgsImV4cCI6MjA4MDU0Nzg4OH0.5Ys003VuHXLngvGQlKNJrDjQybs87H1Vs-hRGNuQPDo"
+);
+
+// ===== Google Books API Key =====
+const googleApiKey = "AIzaSyCJGgpA594gCg8eOVOpLkhKVcs5K7Jkg38";
+
+// ===== Fetch Metadata =====
+async function fetchMetadata(isbn) {
+  try {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${googleApiKey}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    
+    if (!data.items) return null;
+    const info = data.items[0].volumeInfo;
+
+    return {
+      title: info.title || "Unknown Title",
+      author: info.authors ? info.authors.join(", ") : "Unknown Author",
+      cover_url:
+        info.imageLinks?.thumbnail || info.imageLinks?.smallThumbnail || "assets/placeholder.png"
+    };
+  } catch {
+    return null;
+  }
+}
+
+// ===== Shimmer Loaders =====
+function loadShimmers() {
+  const grid = document.getElementById("booksGrid");
+  grid.innerHTML = Array(8)
+    .fill(`<div class="p-3 bg-white rounded shadow">
+      <div class="h-40 w-full rounded shimmer mb-2"></div>
+      <div class="h-4 w-3/4 shimmer mb-1"></div>
+      <div class="h-3 w-1/2 shimmer"></div>
+    </div>`).join("");
+}
+
+// ===== Load Catalogue =====
+async function loadCatalogue() {
+  loadShimmers();
+  const grid = document.getElementById("booksGrid");
+
+  const { data, error } = await supabase.from("book_data").select("*");
+  if (error || !data.length) {
+    grid.innerHTML = `<p class="text-gray-600">No books found.</p>`;
+    return;
+  }
+
+  const books = await Promise.all(
+    data.map(async (b) => {
+      const meta = await fetchMetadata(b.isbn);
+      return { ...b, ...meta };
+    })
+  );
+grid.innerHTML = books.map(b => `
+  <a href="book.html?isbn=${b.isbn}&acc=${b.acc_no}"
+     class="block bg-white rounded shadow hover:shadow-lg transition p-3">
+    <img src="${b.cover_url}" class="w-full h-40 object-cover rounded">
+    <h3 class="font-semibold mt-2 text-sm">${b.title}</h3>
+    <p class="text-xs text-gray-600">${b.author}</p>
+    <p class="text-xs mt-1">📌 Acc No: <span class="text-blue-700 font-bold">${b.acc_no}</span></p>
+    <p class="text-xs text-gray-500">📅 Added: ${b.date_added}</p>
+  </a>
+`).join("");
+}
+
+// ===== Search =====
+document.getElementById("searchBtn").addEventListener("click", async () => {
+  const q = document.getElementById("searchInput").value.trim();
+  const results = document.getElementById("searchResults");
+
+  if (!q) return results.innerHTML = `<p>Enter search query</p>`;
+
+  results.innerHTML = `<p>Searching...</p>`;
+
+  // Search Google Books
+  const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&key=${googleApiKey}`;
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (!data.items) return result.innerHTML = `<p>No results found</p>`;
+
+results.innerHTML = data.items.map(item => {
+    const info = item.volumeInfo;
+    return `
+      <div class="bg-white p-3 rounded shadow flex gap-3">
+        <img src="${info.imageLinks?.thumbnail || 'assets/placeholder.png'}"
+             class="w-20 h-24 object-cover rounded">
+        <div>
+          <h3 class="font-semibold">${info.title}</h3>
+          <p class="text-sm text-gray-600">${info.authors?.join(", ") || "Unknown"}</p>
+        </div>
+      </div>
+    `;
+  }).join("");
+});
+
+// Run on load
+loadCatalogue();
+</script>
+</body>
+</html></body>
+</html>>
