@@ -119,7 +119,7 @@ async function loadCatalogue() {
     })
   );
 grid.innerHTML = books.map(b => `
-  <a href="book.html?isbn=${b.isbn}&acc=${b.acc_no}"
+  <a href="/book.html?isbn=${b.isbn}&acc=${b.acc_no}"
      class="block bg-white rounded shadow hover:shadow-lg transition p-3">
     <img src="${b.cover_url}" class="w-full h-40 object-cover rounded">
     <h3 class="font-semibold mt-2 text-sm">${b.title}</h3>
